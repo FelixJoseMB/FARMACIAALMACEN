@@ -7,3 +7,9 @@ const ProductoSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Producto', ProductoSchema);
+
+ProductoSchema.methods.actualizarStock = async function(cantidad) {
+  this.stock += cantidad;
+  await this.save();
+  return this;
+};
