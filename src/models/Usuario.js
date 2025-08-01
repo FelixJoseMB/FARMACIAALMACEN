@@ -1,12 +1,18 @@
+<<<<<<< Updated upstream
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+=======
+const Usuario = require('../models/Usuario');
+>>>>>>> Stashed changes
 
-const UsuarioSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  rol: { type: String, enum: ['admin', 'farmacista'], default: 'farmacista' }
-});
+exports.crearUsuario = async (req, res) => {
+  const { email, password, rol } = req.body;
+  const usuario = new Usuario({ email, password, rol });
+  await usuario.save();
+  res.status(201).json(usuario);
+};
 
+<<<<<<< Updated upstream
 
 UsuarioSchema.pre('save', async function(next) {
   if (this.isModified('password')) {
@@ -16,3 +22,9 @@ UsuarioSchema.pre('save', async function(next) {
 });
 
 module.exports = mongoose.model('Usuario', UsuarioSchema);
+=======
+exports.listarUsuarios = async (req, res) => {
+  const usuarios = await Usuario.find();
+  res.json(usuarios);
+};
+>>>>>>> Stashed changes
